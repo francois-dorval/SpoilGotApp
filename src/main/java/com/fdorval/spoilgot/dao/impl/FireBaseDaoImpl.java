@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import com.fdorval.spoilgot.dao.FireBaseDao;
-import com.fdorval.spoilgot.model.GotCharacter;
+import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +29,8 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 	DatabaseReference firebaseDatabase;
 
 	@Override
-	public List<GotCharacter> getCharacters() throws TechnicalException {
-		List<GotCharacter> result = new ArrayList<GotCharacter>();
+	public List<GotCharacterFirebase> getCharacters() throws TechnicalException {
+		List<GotCharacterFirebase> result = new ArrayList<GotCharacterFirebase>();
 
 		DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 		
@@ -41,18 +41,23 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 
 			@Override
 			public void onDataChange(DataSnapshot snapshot) {
+				try {
 				LOG.info("found {} characters", snapshot.child("characters").getChildrenCount());
 				 String string = snapshot.toString();
 
 				  for (DataSnapshot postSnapshot: snapshot.child("characters").getChildren()) {
-					  GotCharacter character = postSnapshot.getValue(GotCharacter.class);
+					  GotCharacterFirebase character = postSnapshot.getValue(GotCharacterFirebase.class);
 					LOG.info("--> " + character.toString());
 
 				    result.add(character);
 				  }
 				 LOG.debug(string);
-		        semaphore.release();
+				}catch (Exception e) {
+					LOG.error("erreur désérialisation", e);
+				}finally {
+			        semaphore.release();
 
+				}
 			}
 
 			@Override

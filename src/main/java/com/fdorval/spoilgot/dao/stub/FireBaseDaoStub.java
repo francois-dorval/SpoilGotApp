@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import com.fdorval.spoilgot.dao.FireBaseDao;
-import com.fdorval.spoilgot.model.GotCharacter;
+import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 
 @Profile("test")
@@ -21,11 +21,11 @@ public class FireBaseDaoStub implements FireBaseDao {
 
 	@Override
 	public
-	List<GotCharacter> getCharacters() throws TechnicalException{
-		List<GotCharacter> result = new ArrayList<GotCharacter>();
-		result.add(new GotCharacter("Dark", "Vador", 8));
-		result.add(new GotCharacter("Luke", "Skywalker", 18));
-		result.add(new GotCharacter("R2", "D2", 8));
+	List<GotCharacterFirebase> getCharacters() throws TechnicalException{
+		List<GotCharacterFirebase> result = new ArrayList<GotCharacterFirebase>();
+		result.add(new GotCharacterFirebase("Dark", 1));
+		result.add(new GotCharacterFirebase("Luke", 2));
+		result.add(new GotCharacterFirebase("R2", 3));
 		return result;
 
 
