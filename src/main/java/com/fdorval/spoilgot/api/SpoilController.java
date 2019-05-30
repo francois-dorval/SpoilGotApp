@@ -19,8 +19,8 @@ public class SpoilController {
 	SpoilBusiness spoilBusiness;
 	
 	 @RequestMapping(value ="/characters",  method = RequestMethod.GET)
-	    public List<GotCharacterFront> getCharacter(@RequestParam(value = "season", defaultValue = "1") String season ) throws com.fdorval.spoilgot.util.exception.TechnicalException {
-		 return spoilBusiness.getCharacters(Season.valueOf(season));
+	    public List<GotCharacterFront> getCharacter(@RequestParam(value = "season", defaultValue = "1") Integer season ) throws com.fdorval.spoilgot.util.exception.TechnicalException {
+		 return spoilBusiness.getCharacters(Season.fromInt(season));
 	    }
 	 
 	

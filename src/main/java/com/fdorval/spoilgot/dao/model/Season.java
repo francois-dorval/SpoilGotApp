@@ -8,9 +8,15 @@ public enum Season {
 	private Season(Integer intValue) {
 		this.intValue = intValue;
 	}
+	
 
 	public Integer getValue() {
 		return this.intValue;
 	}
+
+	public static Season fromInt(Integer i) {
+		return Season.valueOf("S"+i);
+	}
+	
 
 }

@@ -33,13 +33,13 @@ import com.fdorval.spoilgot.dao.model.Season;
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"test", "mock"})
 @ContextConfiguration(classes = {SpoilBusiness.class, FireBaseDaoMock.class})
-public class BocdemoUnitTestsMock {
+public class BusinessUnitTestsMock {
 
 
 	@Autowired
     private FireBaseDao fireBaseDao;
 	
-	Logger LOG = LoggerFactory.getLogger(BocdemoUnitTestsMock.class);
+	Logger LOG = LoggerFactory.getLogger(BusinessUnitTestsMock.class);
 
 	@Autowired
 	SpoilBusiness bocBusiness;

@@ -12,24 +12,22 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 
 
 /**
- * test de composant bouchonné : les données viennent de
- * com.fdorval.bocdemo.dao.stub.FireBaseDaoStub
+ * test d'intégration NON bouchonné : les données viennent de firebase
+ * -> test dépendant des données -> instable
  * @author françois
  *
  */
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class BocdemoComponentTests {
+public class IntegrationTests {
 
-	Logger LOG = LoggerFactory.getLogger(BocdemoComponentTests.class);
+	Logger LOG = LoggerFactory.getLogger(IntegrationTests.class);
 
 	 @LocalServerPort
 	    private int port;
@@ -39,9 +37,9 @@ public class BocdemoComponentTests {
 	    
 	    @Test
 	    public void shouldReturnCharacters() throws Exception {
-	    	GotCharacterFront[] persos = this.restTemplate.getForObject("http://localhost:" + port + "/characters",
+	    	GotCharacterFront[] persos  = this.restTemplate.getForObject("http://localhost:" + port + "/characters",
 	    			GotCharacterFront[].class);
-	    	assertThat(persos[0].getName().equals("R2"));
+	    	assertThat(persos[0].getName().equals("Stark"));
 	    }
 	    
 	    @Test
