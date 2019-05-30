@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fdorval</groupId>
-	<artifactId>bocdemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>spoilgot</artifactId>
+	<!-- version>test</version> -->
 	<packaging>war</packaging>
-	<name>bocdemo</name>
+	<name>spoilgot</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -20,7 +20,7 @@ import com.fdorval.spoilgot.api.model.GotCharacterFront;
 
 /**
  * test de composant bouchonné : les données viennent de
- * com.fdorval.bocdemo.dao.stub.FireBaseDaoStub
+ * FireBaseDaoStub
  * @author françois
  *
  */
