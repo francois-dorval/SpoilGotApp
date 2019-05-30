@@ -50,7 +50,7 @@ public class GotCharacterFirebase {
 	 * @param killedby
 	 * @param killedinseason
 	 */
-	public GotCharacterFirebase(String name, Integer id, Integer killedby, Season killedinseason) {
+	public GotCharacterFirebase(String name, Integer id, Season killedinseason, Integer killedby) {
 		super();
 		this.name = name;
 		this.id = id;

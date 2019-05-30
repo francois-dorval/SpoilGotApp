@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.dao.FireBaseDao;
 import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 
 @Service
@@ -24,12 +25,9 @@ public class SpoilBusiness {
 	 * @return 
 	 * @throws TechnicalException
 	 */
-    public List<GotCharacterFront> getCharacters(Integer season) throws TechnicalException {
+    public List<GotCharacterFront> getCharacters(Season season) throws TechnicalException {
 		List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
-		if (season >1) {
-		//	throw new TechnicalException("Erreur : filtre non implémenté!");
-		}
-
+		
 		
 		List<GotCharacterFront> result = new ArrayList<>();
 		for (GotCharacterFirebase characterFirebase:charactersFirebase) {
@@ -49,12 +47,13 @@ public class SpoilBusiness {
 	/**
 	 *  true si le personnage se fait tuer avant la saison en cours
 	 * @param gotCharacterFirebase
-	 * @param season
+	 * @param season.getVue()
 	 * @return
 	 */
-	boolean characterIsKilledBeforeSeason(GotCharacterFirebase gotCharacterFirebase, Integer season) {
-		return  gotCharacterFirebase.getKilledinseason()!=null && gotCharacterFirebase.getKilledinseason().getValue() < season;
-
+	boolean characterIsKilledBeforeSeason(GotCharacterFirebase gotCharacterFirebase, Season season) {
+		
+		return     gotCharacterFirebase.getKilledinseason()!=null 
+				&& gotCharacterFirebase.getKilledinseason().getValue() < season.getValue();
 	}
 
 	
@@ -64,8 +63,9 @@ public class SpoilBusiness {
 	 * @param season
 	 * @return
 	 */
-	boolean characterIsKilledInSeason(GotCharacterFirebase gotCharacterFirebase, Integer season) {
-		return  gotCharacterFirebase.getKilledinseason()!=null && gotCharacterFirebase.getKilledinseason().getValue() == season;
+	boolean characterIsKilledInSeason(GotCharacterFirebase gotCharacterFirebase, Season season) {
+		return  	gotCharacterFirebase.getKilledinseason()!=null 
+				&& 	gotCharacterFirebase.getKilledinseason().getValue() == season.getValue();
 	}
 
 
@@ -75,15 +75,16 @@ public class SpoilBusiness {
 	 * @param gotCharacterFirebase
 	 * @return
 	 */
-	public GotCharacterFront map(GotCharacterFirebase gotCharacterFirebase, Integer currentSeason ) {
+	public GotCharacterFront map(GotCharacterFirebase gotCharacterFirebase, Season currentSeason ) {
 		GotCharacterFront result = new GotCharacterFront();
 		//le nom
 		result.setName(gotCharacterFirebase.getName());
 		
-		//se fait-i tuer dans la saison en cours?
+		//se fait-il tuer dans la saison en cours?
 		boolean deadInSeasoon = characterIsKilledInSeason(gotCharacterFirebase, currentSeason); 
-		
 		result.setDeadInSeason(deadInSeasoon);
+		
+		//cause de la mort
 		if (deadInSeasoon) {
 			result.setCauseOfDeath("killed by "+gotCharacterFirebase.getKilledby());
 		}

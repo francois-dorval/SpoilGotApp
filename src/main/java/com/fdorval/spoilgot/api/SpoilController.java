@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.business.SpoilBusiness;
+import com.fdorval.spoilgot.dao.model.Season;
 
 @RestController
 public class SpoilController {
@@ -18,8 +19,8 @@ public class SpoilController {
 	SpoilBusiness spoilBusiness;
 	
 	 @RequestMapping(value ="/characters",  method = RequestMethod.GET)
-	    public List<GotCharacterFront> getCharacter(@RequestParam(value = "season", defaultValue = "1") Integer season ) throws com.fdorval.spoilgot.util.exception.TechnicalException {
-		 return spoilBusiness.getCharacters(season);
+	    public List<GotCharacterFront> getCharacter(@RequestParam(value = "season", defaultValue = "1") String season ) throws com.fdorval.spoilgot.util.exception.TechnicalException {
+		 return spoilBusiness.getCharacters(Season.valueOf(season));
 	    }
 	 
 	
