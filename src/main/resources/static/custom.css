@@ -1,3 +1,10 @@
 .customline {
   text-decoration: line-through;
 }
+
+.custombody{
+  background : url("stark.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}

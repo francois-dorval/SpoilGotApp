@@ -7,6 +7,7 @@ import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -36,7 +37,6 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 		
 		//beurk
 		final Semaphore semaphore = new Semaphore(0);
-
 		ref.addValueEventListener(new ValueEventListener() {
 
 			@Override
@@ -48,15 +48,12 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 				  for (DataSnapshot postSnapshot: snapshot.child("characters").getChildren()) {
 					  GotCharacterFirebase character = postSnapshot.getValue(GotCharacterFirebase.class);
 					LOG.info("--> " + character.toString());
-
 				    result.add(character);
 				  }
-				 LOG.debug(string);
 				}catch (Exception e) {
 					LOG.error("erreur désérialisation", e);
 				}finally {
 			        semaphore.release();
-
 				}
 			}
 

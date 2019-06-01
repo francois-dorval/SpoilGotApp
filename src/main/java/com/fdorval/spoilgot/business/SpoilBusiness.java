@@ -26,11 +26,11 @@ public class SpoilBusiness {
 	 * @throws TechnicalException
 	 */
     public List<GotCharacterFront> getCharacters(Season season) throws TechnicalException {
-		List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
+    	List<GotCharacterFront> result = new ArrayList<>();
+    	
+    	List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
 		
-		
-		List<GotCharacterFront> result = new ArrayList<>();
-		for (GotCharacterFirebase characterFirebase:charactersFirebase) {
+    	for (GotCharacterFirebase characterFirebase:charactersFirebase) {
 			
 			//si le personnage est mort avant la saison courante, on ne l'affiche pas
 			if (! characterIsKilledBeforeSeason(characterFirebase, season)){
