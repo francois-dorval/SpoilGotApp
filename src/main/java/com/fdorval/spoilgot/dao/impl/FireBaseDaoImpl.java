@@ -11,7 +11,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import com.fdorval.spoilgot.dao.FireBaseDao;
 import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +29,8 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 	DatabaseReference firebaseDatabase;
 
 	@Override
+	@Cacheable(value= "dataCache")
+
 	public List<GotCharacterFirebase> getCharacters() throws TechnicalException {
 		List<GotCharacterFirebase> result = new ArrayList<GotCharacterFirebase>();
 

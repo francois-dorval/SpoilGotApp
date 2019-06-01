@@ -12,6 +12,11 @@ import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.business.SpoilBusiness;
 import com.fdorval.spoilgot.dao.model.Season;
 
+/**
+ * le point d'entrée de l'API...
+ * @author franc
+ *
+ */
 @RestController
 public class SpoilController {
 

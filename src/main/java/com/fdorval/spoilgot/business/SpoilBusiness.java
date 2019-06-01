@@ -12,6 +12,11 @@ import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 
+/**
+ * là où est le métier
+ * @author franc
+ *
+ */
 @Service
 public class SpoilBusiness {
 

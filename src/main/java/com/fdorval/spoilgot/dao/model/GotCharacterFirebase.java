@@ -1,7 +1,7 @@
 package com.fdorval.spoilgot.dao.model;
 
 /**
- * bean
+ * les données de la base firebase
  * @author franc
  *
  */
