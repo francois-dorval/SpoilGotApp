@@ -12,6 +12,11 @@ import com.fdorval.spoilgot.dao.FireBaseDao;
 import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 
+/**
+ * classe utilitaire
+ * @author franc
+ *
+ */
 @Profile("test & mock")
 @Primary
 @Repository

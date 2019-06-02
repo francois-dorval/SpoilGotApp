@@ -1,4 +1,4 @@
-package com.fdorval.spoilgot;
+package com.fdorval.spoilgot.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
