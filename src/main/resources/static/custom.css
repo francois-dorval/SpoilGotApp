@@ -4,7 +4,6 @@
 
 .custombody{
   background : url("stark.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-size: initial;
 
 }

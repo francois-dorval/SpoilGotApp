@@ -18,5 +18,9 @@ public enum Season {
 		return Season.valueOf("S"+i);
 	}
 	
+	public static Season fromString(String i) {
+		return Season.valueOf("S"+i);
+	}
+	
 
 }

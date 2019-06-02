@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fdorval.spoilgot.dao.FireBaseDao;
 import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 
 @Profile("test")
@@ -23,9 +24,9 @@ public class FireBaseDaoStub implements FireBaseDao {
 	public
 	List<GotCharacterFirebase> getCharacters() throws TechnicalException{
 		List<GotCharacterFirebase> result = new ArrayList<GotCharacterFirebase>();
-		result.add(new GotCharacterFirebase("Dark", 1));
-		result.add(new GotCharacterFirebase("Luke", 2));
-		result.add(new GotCharacterFirebase("R2", 3));
+		result.add(new GotCharacterFirebase(1, "Michel Stark", Season.S2, 2));
+		result.add(new GotCharacterFirebase(2, "Jean-Luc Lannister"));
+		result.add(new GotCharacterFirebase(3, "Un Zombie"));
 		return result;
 
 

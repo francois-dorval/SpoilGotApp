@@ -2,6 +2,7 @@ package com.fdorval.spoilgot;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,10 +37,19 @@ public class IntegrationTests {
 	    private TestRestTemplate restTemplate;
 	    
 	    @Test
-	    public void shouldReturnCharacters() throws Exception {
+	    public void shouldReturnCharactersWithAtLeastAStark() throws Exception {
 	    	GotCharacterFront[] persos  = this.restTemplate.getForObject("http://localhost:" + port + "/characters",
 	    			GotCharacterFront[].class);
-	    	assertThat(persos[0].getName().equals("Stark"));
+	    	
+	    	boolean starkFound = false;
+	    	for (GotCharacterFront charac:persos) {
+	    		if (charac.getName().contains("Stark")) {
+	    			starkFound = true;
+	    		}
+	    	}
+	    	Assert.assertTrue(starkFound);
+	    	
+	    	
 	    }
 	    
 	    @Test

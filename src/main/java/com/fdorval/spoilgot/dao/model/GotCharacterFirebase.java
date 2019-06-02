@@ -34,23 +34,23 @@ public class GotCharacterFirebase {
 	}
 
 	/**
-	 * 
-	 * @param name
+	 * constructeur
 	 * @param id
+	 * @param name
 	 */
-	public GotCharacterFirebase(String name, Integer id) {
-		this(name, id, null, null);
+	public GotCharacterFirebase(Integer id, String name) {
+		this(id, name, null, null);
 	}
 
 		
 	/**
-	 * 
-	 * @param name
+	 * constructeur
 	 * @param id
-	 * @param killedby
+	 * @param name
 	 * @param killedinseason
+	 * @param killedby
 	 */
-	public GotCharacterFirebase(String name, Integer id, Season killedinseason, Integer killedby) {
+	public GotCharacterFirebase(Integer id, String name, Season killedinseason, Integer killedby) {
 		super();
 		this.name = name;
 		this.id = id;

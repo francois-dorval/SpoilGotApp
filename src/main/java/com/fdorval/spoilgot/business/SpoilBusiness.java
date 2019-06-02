@@ -25,7 +25,7 @@ public class SpoilBusiness {
 	
 	
 	/**
-	 * la liste des personages
+	 * la liste des personages d'une saison
 	 * @param season : la saison demandée
 	 * @return 
 	 * @throws TechnicalException
@@ -50,7 +50,7 @@ public class SpoilBusiness {
 
 
 	/**
-	 *  true si le personnage se fait tuer avant la saison en cours
+	 *  true si le personnage se fait tuer AVANT la saison en cours
 	 * @param gotCharacterFirebase
 	 * @param season.getVue()
 	 * @return
@@ -63,7 +63,7 @@ public class SpoilBusiness {
 
 	
 	/**
-	 * true si le personnage se fait tuer dans la saison en cours
+	 * true si le personnage se fait tuer PENDANT la saison en cours
 	 * @param gotCharacterFirebase
 	 * @param season
 	 * @return
@@ -72,26 +72,46 @@ public class SpoilBusiness {
 		return  	gotCharacterFirebase.getKilledinseason()!=null 
 				&& 	gotCharacterFirebase.getKilledinseason().getValue() == season.getValue();
 	}
+	
+	
+	/**
+	 * retourne un personnage en fonction de son id
+	 * @param allCharactersFirebase
+	 * @param id
+	 * @return
+	 * @throws TechnicalException 
+	 */
+	GotCharacterFirebase findCharacteByID( Integer id) throws TechnicalException {
+    	List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
+		for(GotCharacterFirebase character:charactersFirebase) {
+			if (character.getId().equals(id)) {
+				return character;
+			}
+		}
+		return null;
+	}
 
 
 
 	/**
 	 * conversion personnage firebase -> personnages front
 	 * @param gotCharacterFirebase
+	 * @param charactersFirebase 
 	 * @return
+	 * @throws TechnicalException 
 	 */
-	public GotCharacterFront map(GotCharacterFirebase gotCharacterFirebase, Season currentSeason ) {
+	public GotCharacterFront map(GotCharacterFirebase gotCharacterFirebase, Season currentSeason) throws TechnicalException {
 		GotCharacterFront result = new GotCharacterFront();
 		//le nom
 		result.setName(gotCharacterFirebase.getName());
 		
 		//se fait-il tuer dans la saison en cours?
-		boolean deadInSeasoon = characterIsKilledInSeason(gotCharacterFirebase, currentSeason); 
-		result.setDeadInSeason(deadInSeasoon);
+		boolean deadInSeason = characterIsKilledInSeason(gotCharacterFirebase, currentSeason); 
+		result.setDeadInSeason(deadInSeason);
 		
 		//cause de la mort
-		if (deadInSeasoon) {
-			result.setCauseOfDeath("killed by "+gotCharacterFirebase.getKilledby());
+		if (deadInSeason) {
+			result.setCauseOfDeath("killed by "+findCharacteByID(gotCharacterFirebase.getKilledby()).getName());
 		}
 		
 		return result;

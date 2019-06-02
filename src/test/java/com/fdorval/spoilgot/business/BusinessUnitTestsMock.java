@@ -42,49 +42,74 @@ public class BusinessUnitTestsMock {
 	Logger LOG = LoggerFactory.getLogger(BusinessUnitTestsMock.class);
 
 	@Autowired
-	SpoilBusiness bocBusiness;
+	SpoilBusiness spoilBusiness;
 	
 	
+	/**
+	 * teste les méthodes utilisaires
+	 */
 	@Test
 	public void testMethodesUtils() {
-		GotCharacterFirebase perso = new GotCharacterFirebase("Perso qui se fait tuer dans la saison 2", 1, Season.S2, 2);
+		GotCharacterFirebase perso = new GotCharacterFirebase(1, "Perso qui se fait tuer dans la saison 2", Season.S2, 2);
 		
-		Assert.assertTrue(bocBusiness.characterIsKilledBeforeSeason(perso, Season.S3));
+		Assert.assertTrue(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S3));
 		
-		Assert.assertFalse(bocBusiness.characterIsKilledBeforeSeason(perso, Season.S2));
+		Assert.assertFalse(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S2));
 		
-		Assert.assertTrue(bocBusiness.characterIsKilledInSeason(perso, Season.S2));
+		Assert.assertTrue(spoilBusiness.characterIsKilledInSeason(perso, Season.S2));
 
 
 	}
 	
-//
-//	@Test
-//	public void testGetSudents() {
-//		List<GotCharacterFront> result = new ArrayList<GotCharacterFront>();
-//		result.add(new GotCharacterFront("Harry", 1));
-//		result.add(new GotCharacterFront("Hermione", 2));
-//		result.add(new GotCharacterFront("Voldemort", 3));
-//        try {
-//        	FireBaseDaoMock fireBaseDaoMock = (FireBaseDaoMock) fireBaseDao;
-//
-//			Mockito.when(fireBaseDaoMock.getMockDelegate(). getCharacters()).thenReturn(result);
-//	
-//		
-//			List<GotCharacterFirebase> students = bocBusiness.getCharacters(1);
-//			for (GotCharacterFirebase student : students) {
-//				LOG.info("-> " + student);
-//			}
-//			Assert.assertEquals(students.get(2).getName(), "Voldemort");
-//
-//		} catch (Exception e) {
-//			Assert.fail();
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	
-//	
+
+	@Test
+	public void testGetAllCharacters() {
+		List<GotCharacterFirebase> result = new ArrayList<>();
+		result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
+		result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+        try {
+        	FireBaseDaoMock fireBaseDaoMock = (FireBaseDaoMock) fireBaseDao;
+
+			Mockito.when(fireBaseDaoMock.getMockDelegate(). getCharacters()).thenReturn(result);
+	
+			//à la saison 1 on doit avoir 2 personnages
+			List<GotCharacterFront> charactersS1 = spoilBusiness.getCharacters(Season.S1);
+			Assert.assertEquals(charactersS1.size(), 2);
+
+			List<GotCharacterFront> charactersS7 = spoilBusiness.getCharacters(Season.S7);
+			Assert.assertEquals(charactersS7.size(), 1);
+
+			
+		} catch (Exception e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Test
+	public void testGetCharactersFilter() {
+		List<GotCharacterFirebase> result = new ArrayList<>();
+		result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
+		result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+        try {
+        	FireBaseDaoMock fireBaseDaoMock = (FireBaseDaoMock) fireBaseDao;
+
+			Mockito.when(fireBaseDaoMock.getMockDelegate(). getCharacters()).thenReturn(result);
+	
+			//à la saison 7 on doit avoir 1 personnage (Jimmy est mort)
+			List<GotCharacterFront> charactersS7 = spoilBusiness.getCharacters(Season.S7);
+			Assert.assertEquals(charactersS7.size(), 1);
+			Assert.assertEquals(charactersS7.get(0).getName(), "Johnny Lannister");
+
+			
+		} catch (Exception e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 	
 	
