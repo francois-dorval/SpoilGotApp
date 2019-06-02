@@ -3,11 +3,14 @@ package com.fdorval.spoilgot.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.dao.FireBaseDao;
+import com.fdorval.spoilgot.dao.impl.FireBaseDaoImpl;
 import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
 import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
@@ -19,6 +22,8 @@ import com.fdorval.spoilgot.util.exception.TechnicalException;
  */
 @Service
 public class SpoilBusiness {
+
+	Logger LOG = LoggerFactory.getLogger(SpoilBusiness.class);
 
 	@Autowired 
 	FireBaseDao fireBaseDao;
@@ -88,6 +93,7 @@ public class SpoilBusiness {
 				return character;
 			}
 		}
+		LOG.warn("c'est pas normal... " +id);
 		return null;
 	}
 
@@ -113,8 +119,9 @@ public class SpoilBusiness {
 		if (deadInSeason) {
 			result.setCauseOfDeath("killed by "+findCharacteByID(gotCharacterFirebase.getKilledby()).getName());
 		}
-		
 		return result;
+
+	
 	}
 
    

@@ -26,9 +26,9 @@ import com.fdorval.spoilgot.api.model.GotCharacterFront;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class IntegrationTests {
+public class IntegrationTest {
 
-	Logger LOG = LoggerFactory.getLogger(IntegrationTests.class);
+	Logger LOG = LoggerFactory.getLogger(IntegrationTest.class);
 
 	 @LocalServerPort
 	    private int port;

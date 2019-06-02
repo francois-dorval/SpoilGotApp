@@ -33,13 +33,13 @@ import com.fdorval.spoilgot.dao.model.Season;
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"test", "mock"})
 @ContextConfiguration(classes = {SpoilBusiness.class, FireBaseDaoMock.class})
-public class BusinessUnitTestsMock {
+public class BusinessUnitTest {
 
 
 	@Autowired
     private FireBaseDao fireBaseDao;
 	
-	Logger LOG = LoggerFactory.getLogger(BusinessUnitTestsMock.class);
+	Logger LOG = LoggerFactory.getLogger(BusinessUnitTest.class);
 
 	@Autowired
 	SpoilBusiness spoilBusiness;
@@ -62,6 +62,9 @@ public class BusinessUnitTestsMock {
 	}
 	
 
+	/**
+	 * tests basique : tous les personnages sont renvoyés
+	 */
 	@Test
 	public void testGetAllCharacters() {
 		List<GotCharacterFirebase> result = new ArrayList<>();
@@ -75,18 +78,17 @@ public class BusinessUnitTestsMock {
 			//à la saison 1 on doit avoir 2 personnages
 			List<GotCharacterFront> charactersS1 = spoilBusiness.getCharacters(Season.S1);
 			Assert.assertEquals(charactersS1.size(), 2);
-
-			List<GotCharacterFront> charactersS7 = spoilBusiness.getCharacters(Season.S7);
-			Assert.assertEquals(charactersS7.size(), 1);
-
-			
+	
 		} catch (Exception e) {
 			Assert.fail();
 			e.printStackTrace();
 		}
 	}
 	
-
+	
+	/**
+	 * tests basique : un des deux personnages est filtré
+	 */
 	@Test
 	public void testGetCharactersFilter() {
 		List<GotCharacterFirebase> result = new ArrayList<>();
@@ -110,7 +112,16 @@ public class BusinessUnitTestsMock {
 	}
 
 	
-	
+
+	/**
+	 * Explication du problème : ...
+	 * Test qui le met en évidence à écrire...
+	 */
+	@Test
+	//TODO
+	public void testSaison6Erreur500() {
+		
+	}
 	
 	
 
