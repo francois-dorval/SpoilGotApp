@@ -27,7 +27,7 @@ GET /characters?season=<seasonNumber>
 
 Elle renvoie des personnages de Game of Thrones filtrés par saison.
 En java : une liste de "GotCharacterFront"
-Exemple de réponse : GET /characters?season=3
+Exemple de réponse : GET /characters?season=3  
 ``
 [  
    {  
@@ -52,10 +52,9 @@ On a parfois un champ "causeOfDeath" qui indique qui a tué le personnage.
    
 
 ------------------------------------
----- Database
-------------------------------------
+# Database
    
-Les données dans firebase ressemblent à ça :
+Les données dans firebase ressemblent à ça :  
 ``
 [	
 	GotCharacter [name=Arya Stark,           id=1,  killedby=null, killedinseason=null], 
@@ -65,18 +64,23 @@ Les données dans firebase ressemblent à ça :
 	GotCharacter [name=Robb Stark,           id=13, killedby=12,   killedinseason=S3], 
 	GotCharacter [name=Ned Stark,            id=2,  killedby=3,    killedinseason=S1]
 (...)
-``
+``  
 En java : une liste de "GotCharacterFirebase"
 
    
 L'appli ne fait que du filtrage et du mapping.
 
-Point d'entrée de l'api : 
-* SpoilController.java
-Couche métier : 
-* SpoilBusiness.java
+Point d'entrée de l'api :   
+* SpoilController.java  
+Couche métier :   
+* SpoilBusiness.java  
 
 
+# Qualimétrie
+à compléter!
+
+# Gitlab
+à compléter aussi!
 
    
    
