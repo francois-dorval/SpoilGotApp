@@ -3,21 +3,21 @@ Une appli pour spoiler Game of Thrones!
 (pas d'inquiétude les données sont incomplètes).
 
 ------------------------------------
----- Technos utilisées
-------------------------------------
+# Technos utilisées
+
 Appli java/springboot/maven
 Database : firebase
 
 
 ------------------------------------
----- front
-------------------------------------
+# front
+
 L'appli a une partie web (src/main/resources/static/index.html) basique en vuejs.
 
 
 ------------------------------------
----- API
-------------------------------------
+# API
+
 
 L'appli se compose principalement d'une API avec un endpoint : 
 
