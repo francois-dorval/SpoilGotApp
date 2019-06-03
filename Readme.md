@@ -5,8 +5,8 @@ Une appli pour spoiler Game of Thrones!
 ------------------------------------
 # Technos utilisées
 
-Appli java/springboot/maven
-Database : firebase
+Appli java/springboot/maven  
+Database : firebase  
 
 
 ------------------------------------
@@ -19,14 +19,14 @@ L'appli a une partie web (src/main/resources/static/index.html) basique en vuejs
 # API
 
 
-L'appli se compose principalement d'une API avec un endpoint : 
+L'appli se compose principalement d'une API avec un endpoint :  
 
-GET /characters
+GET /characters  
 ou
-GET /characters?season=<seasonNumber>
+GET /characters?season=<seasonNumber>  
 
-Elle renvoie des personnages de Game of Thrones filtrés par saison.
-En java : une liste de "GotCharacterFront"
+Elle renvoie des personnages de Game of Thrones filtrés par saison.  
+En java : une liste de "GotCharacterFront"  
 Exemple de réponse : GET /characters?season=3  
 ``
 [  
@@ -46,9 +46,9 @@ Exemple de réponse : GET /characters?season=3
    (...)
    ]
   ``
-Les personnages tués dans la saison ont le flag "deadInSeason" à true.
-Ceux qui ont été tués avant la saison en paramètre n'apparaissent pas.
-On a parfois un champ "causeOfDeath" qui indique qui a tué le personnage.
+Les personnages tués dans la saison ont le flag "deadInSeason" à true.  
+Ceux qui ont été tués avant la saison en paramètre n'apparaissent pas.  
+On a parfois un champ "causeOfDeath" qui indique qui a tué le personnage.  
    
 
 ------------------------------------
@@ -57,22 +57,26 @@ On a parfois un champ "causeOfDeath" qui indique qui a tué le personnage.
 Les données dans firebase ressemblent à ça :  
 ``
 [	
-	GotCharacter [name=Arya Stark,           id=1,  killedby=null, killedinseason=null], 
-	GotCharacter [name=Daenerys Targaryen,   id=10, killedby=null, killedinseason=null], 
-	GotCharacter [name=Ramsay Bolton,        id=11, killedby=null, killedinseason=S6], 
-	GotCharacter [name=Roose Bolton,         id=12, killedby=11,   killedinseason=S6], 
-	GotCharacter [name=Robb Stark,           id=13, killedby=12,   killedinseason=S3], 
-	GotCharacter [name=Ned Stark,            id=2,  killedby=3,    killedinseason=S1]
+	GotCharacter [name=Arya Stark,           id=1,  killedby=null, killedinseason=null],   
+	GotCharacter [name=Daenerys Targaryen,   id=10, killedby=null, killedinseason=null],   
+	GotCharacter [name=Ramsay Bolton,        id=11, killedby=null, killedinseason=S6],   
+	GotCharacter [name=Roose Bolton,         id=12, killedby=11,   killedinseason=S6],   
+	GotCharacter [name=Robb Stark,           id=13, killedby=12,   killedinseason=S3],   
+	GotCharacter [name=Ned Stark,            id=2,  killedby=3,    killedinseason=S1]  
 (...)
 ``  
 En java : une liste de "GotCharacterFirebase"
 
    
+------------------------------------
+# Code
+
 L'appli ne fait que du filtrage et du mapping.
 
-Point d'entrée de l'api :   
+## Point d'entrée de l'api :   
 * SpoilController.java  
-Couche métier :   
+
+## Couche métier :   
 * SpoilBusiness.java  
 
 
