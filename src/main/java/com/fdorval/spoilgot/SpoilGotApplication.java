@@ -16,5 +16,4 @@ public class SpoilGotApplication {
 	}
 
 	
-	 une erreur dans le code
 }
