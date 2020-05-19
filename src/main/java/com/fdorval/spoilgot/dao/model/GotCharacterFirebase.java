@@ -1,10 +1,14 @@
 package com.fdorval.spoilgot.dao.model;
 
+import lombok.Data;
+
 /**
  * les données de la base firebase
  * @author franc
  *
  */
+@Data
+
 public class GotCharacterFirebase {
 	
 	/**
@@ -59,45 +63,7 @@ public class GotCharacterFirebase {
 	}
 
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getKilledby() {
-		return killedby;
-	}
-
-	public void setKilledby(Integer killedby) {
-		this.killedby = killedby;
-	}
-
-	public Season getKilledinseason() {
-		return killedinseason;
-	}
-
-	public void setKilledinseason(Season killedinseason) {
-		this.killedinseason = killedinseason;
-	}
-
-	@Override
-	public String toString() {
-		return "GotCharacter [name=" + name + ", id=" + id + ", killedby=" + killedby + ", killedinseason="
-				+ killedinseason + "]";
-	}
-
-	
 	
 	
 
