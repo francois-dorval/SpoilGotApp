@@ -1,6 +1,6 @@
 Une appli pour spoiler Game of Thrones!
 
-(pas d'inquiétude les données sont incomplètes).
+(pas d'inquiétude les données sont incomplètes parce que bon...).
 
 ------------------------------------
 # Technos utilisées
