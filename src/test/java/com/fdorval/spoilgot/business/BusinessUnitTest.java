@@ -1,8 +1,10 @@
 package com.fdorval.spoilgot.business;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.fdorval.spoilgot.api.model.GotCharacterFront;
+import com.fdorval.spoilgot.dao.FireBaseDao;
+import com.fdorval.spoilgot.dao.mock.FireBaseDaoMock;
+import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.Season;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,25 +12,21 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fdorval.spoilgot.api.model.GotCharacterFront;
-import com.fdorval.spoilgot.business.SpoilBusiness;
-import com.fdorval.spoilgot.dao.FireBaseDao;
-import com.fdorval.spoilgot.dao.mock.FireBaseDaoMock;
-import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
-import com.fdorval.spoilgot.dao.model.Season;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * tests unitaires mockés : les données sont injectées à chaque test
- * 
+ * <p>
  * Mock : données dynamiques
- * 
- * @author françois
  *
+ * @author françois
  */
 @RunWith(SpringRunner.class)
 @ActiveProfiles({"test", "mock"})
@@ -36,93 +34,88 @@ import com.fdorval.spoilgot.dao.model.Season;
 public class BusinessUnitTest {
 
 
-	@Autowired
+    @MockBean
     private FireBaseDao fireBaseDao;
-	
-	Logger LOG = LoggerFactory.getLogger(BusinessUnitTest.class);
 
-	@Autowired
-	SpoilBusiness spoilBusiness;
-	
-	
-	/**
-	 * teste les méthodes utilisaires
-	 */
-	@Test
-	public void testMethodesUtils() {
-		GotCharacterFirebase perso = new GotCharacterFirebase(1, "Perso qui se fait tuer dans la saison 2", Season.S2, 2);
-		
-		Assert.assertTrue(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S3));
-		
-		Assert.assertFalse(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S2));
-		
-		Assert.assertTrue(spoilBusiness.characterIsKilledInSeason(perso, Season.S2));
+    Logger LOG = LoggerFactory.getLogger(BusinessUnitTest.class);
+
+    @Autowired
+    SpoilBusiness spoilBusiness;
 
 
-	}
-	
+    /**
+     * teste les méthodes utilisaires
+     */
+    @Test
+    public void testMethodesUtils() {
+        GotCharacterFirebase perso = new GotCharacterFirebase(1, "Perso qui se fait tuer dans la saison 2", Season.S2, 2);
 
-	/**
-	 * tests basique : tous les personnages sont renvoyés
-	 */
-	@Test
-	public void testGetAllCharacters() {
-		List<GotCharacterFirebase> result = new ArrayList<>();
-		result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
-		result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+        Assert.assertTrue(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S3));
+
+        Assert.assertFalse(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S2));
+
+        Assert.assertTrue(spoilBusiness.characterIsKilledInSeason(perso, Season.S2));
+
+
+    }
+
+
+    /**
+     * tests basique : tous les personnages sont renvoyés
+     */
+    @Test
+    public void shouldReturnAllCharacters() {
+        List<GotCharacterFirebase> result = new ArrayList<>();
+        result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
+        result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
         try {
-        	FireBaseDaoMock fireBaseDaoMock = (FireBaseDaoMock) fireBaseDao;
 
-			Mockito.when(fireBaseDaoMock.getMockDelegate(). getCharacters()).thenReturn(result);
-	
-			//à la saison 1 on doit avoir 2 personnages
-			List<GotCharacterFront> charactersS1 = spoilBusiness.getCharacters(Season.S1);
-			Assert.assertEquals(charactersS1.size(), 2);
-	
-		} catch (Exception e) {
-			Assert.fail();
-			e.printStackTrace();
-		}
-	}
-	
-	
-	/**
-	 * tests basique : un des deux personnages est filtré
-	 */
-	@Test
-	public void testGetCharactersFilter() {
-		List<GotCharacterFirebase> result = new ArrayList<>();
-		result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
-		result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+            Mockito.when(fireBaseDao.getCharacters()).thenReturn(result);
+
+            //à la saison 1 on doit avoir 2 personnages
+            List<GotCharacterFront> charactersS1 = spoilBusiness.getCharactersInSeason(Season.S1);
+            Assert.assertEquals(charactersS1.size(), 2);
+
+        } catch (Exception e) {
+            Assert.fail();
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * tests basique : un des deux personnages est filtré
+     */
+    @Test
+    public void shouldReturnCharactersWhoAreNotDeadInSeason() {
+        List<GotCharacterFirebase> result = new ArrayList<>();
+        result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
+        result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
         try {
-        	FireBaseDaoMock fireBaseDaoMock = (FireBaseDaoMock) fireBaseDao;
 
-			Mockito.when(fireBaseDaoMock.getMockDelegate(). getCharacters()).thenReturn(result);
-	
-			//à la saison 7 on doit avoir 1 personnage (Jimmy est mort)
-			List<GotCharacterFront> charactersS7 = spoilBusiness.getCharacters(Season.S7);
-			Assert.assertEquals(charactersS7.size(), 1);
-			Assert.assertEquals(charactersS7.get(0).getName(), "Johnny Lannister");
+            Mockito.when(fireBaseDao.getCharacters()).thenReturn(result);
+            //à la saison 7 on doit avoir 1 personnage (Jimmy est mort)
+            List<GotCharacterFront> charactersS7 = spoilBusiness.getCharactersInSeason(Season.S7);
+            Assert.assertEquals(charactersS7.size(), 1);
+            Assert.assertEquals(charactersS7.get(0).getName(), "Johnny Lannister");
 
-			
-		} catch (Exception e) {
-			Assert.fail();
-			e.printStackTrace();
-		}
-	}
 
-	
+        } catch (Exception e) {
+            Assert.fail();
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * Explication du problème : ...
-	 * Test qui le met en évidence à écrire...
-	 */
-	@Test
-	//TODO
-	public void testSaison6Erreur500() {
-		
-	}
-	
-	
+
+    /**
+     * Explication du problème : ...
+     * Test qui le met en évidence à écrire...
+     */
+    @Test
+    //TODO
+    public void testSaison6Erreur500() {
+
+    }
+
 
 }

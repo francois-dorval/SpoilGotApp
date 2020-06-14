@@ -1,7 +1,6 @@
 package com.fdorval.spoilgot.integration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,46 +14,41 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fdorval.spoilgot.api.model.GotCharacterFront;
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
  * test d'intégration NON bouchonné : les données viennent de firebase
  * -> test dépendant des données -> instable
- * @author françois
  *
+ * @author françois
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class IntegrationTest {
 
-	Logger LOG = LoggerFactory.getLogger(IntegrationTest.class);
+    Logger LOG = LoggerFactory.getLogger(IntegrationTest.class);
 
-	 @LocalServerPort
-	    private int port;
+    @LocalServerPort
+    private int port;
 
-	    @Autowired
-	    private TestRestTemplate restTemplate;
-	    
-	    @Test
-	    public void shouldReturnCharactersWithAtLeastAStark() throws Exception {
-	    	GotCharacterFront[] persos  = this.restTemplate.getForObject("http://localhost:" + port + "/characters",
-	    			GotCharacterFront[].class);
-	    	
-	    	boolean starkFound = false;
-	    	for (GotCharacterFront charac:persos) {
-	    		if (charac.getName().contains("Stark")) {
-	    			starkFound = true;
-	    		}
-	    	}
-	    	Assert.assertTrue(starkFound);
-	    	
-	    	
-	    }
-	    
-	    @Test
-	    public void wrongUrlIn404() throws Exception {
-	        assertThat(this.restTemplate.getForEntity("http://localhost:" + port + "/kamoulox",
-	                String.class).getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-	    }
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    public void shouldReturnCharactersWithAtLeastAStark() throws Exception {
+        GotCharacterFront[] persos = this.restTemplate.getForObject("http://localhost:" + port + "/characters",
+                GotCharacterFront[].class);
+        Assert.assertTrue(Arrays.stream(persos).anyMatch(truc -> truc.getName().contains("Stark")));
+
+
+    }
+
+    @Test
+    public void shouldReturn404ifWrongUrl() throws Exception {
+        assertThat(this.restTemplate.getForEntity("http://localhost:" + port + "/kamoulox",
+                String.class).getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }

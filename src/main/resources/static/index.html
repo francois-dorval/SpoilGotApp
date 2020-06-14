@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
-      <link rel="stylesheet" href="./custom.css">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+    <link rel="stylesheet" href="./custom.css">
 
-      <meta charset="utf-8">
-      <title>Got Spoil</title>
-   </head>
-   <body class="custombody">
-   
-      <div class="top-bar">
-         <h4 class="text-left">Spoil Game of Thrones</h4>
-      </div>
-      
-      <div class="container" id="app">
-         <div class="row column text-center">
-<!--            <input type="range" min="1" max="8" value="1" v-model="season" class="slider" style="width:80%" id="myRange">-->
-            <select v-model="season">
-               <option value="1">Saison 1</option>
-               <option value="2">Saison 2</option>
-               <option value="3">Saison 3</option>
-               <option value="4">Saison 4</option>
-               <option value="5">Saison 5</option>
-               <option value="6">Saison 6</option>
-               <option value="7">Saison 7</option>
-               <option value="8">Saison 8</option>
+    <meta charset="utf-8">
+    <title>Got Spoil</title>
+</head>
+<body class="custombody">
 
-            </select>
+<div class="top-bar">
+    <h4 class="text-left">Spoil Game of Thrones</h4>
+</div>
 
-<!--            <h4>Saison {{ season }}</h4>-->
+<div class="container" id="app">
+    <div class="row column text-center">
+        <!--            <input type="range" min="1" max="8" value="1" v-model="season" class="slider" style="width:80%" id="myRange">-->
+        <select v-model="season">
+            <option value="1">Saison 1</option>
+            <option value="2">Saison 2</option>
+            <option value="3">Saison 3</option>
+            <option value="4">Saison 4</option>
+            <option value="5">Saison 5</option>
+            <option value="6">Saison 6</option>
+            <option value="7">Saison 7</option>
+            <option value="8">Saison 8</option>
 
-         </div>
-         
-         <div class="columns medium-4" v-for="(result, index) in results">
-            <div class="card">
-               <div class="card-divider">
-                  <p > <b v-bind:class="{ customline: result.deadInSeason}">{{ result.name }}</b> {{ result.causeOfDeath }}</p>
-               </div>
-<!--               <div class="card-section">-->
-<!--                  <p>{{ result.causeOfDeath }}</p>-->
-<!--               </div>-->
+        </select>
+
+        <!--            <h4>Saison {{ season }}</h4>-->
+
+    </div>
+
+    <div class="columns medium-4" v-for="(result, index) in results">
+        <div class="card">
+            <div class="card-divider">
+                <p><b v-bind:class="{ customline: result.deadInSeason}">{{ result.name }}</b> {{ result.causeOfDeath }}
+                </p>
             </div>
-         </div>
-         
-         
-      </div>
-      <script src="https://unpkg.com/vue"></script>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script src="vueApp.js"></script>
-   </body>
+            <!--               <div class="card-section">-->
+            <!--                  <p>{{ result.causeOfDeath }}</p>-->
+            <!--               </div>-->
+        </div>
+    </div>
+
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="vueApp.js"></script>
+</body>
 </html>
