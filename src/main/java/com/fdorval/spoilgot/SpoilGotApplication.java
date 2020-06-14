@@ -9,10 +9,11 @@ public class SpoilGotApplication {
     /**
      * launch spring
      *
-     * @param args ...
+     * @param args ....
      */
     public static void main(String[] args) {
         SpringApplication.run(SpoilGotApplication.class, args);
+
     }
 
 
