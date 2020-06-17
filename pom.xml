@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.fdorval</groupId>
     <artifactId>spoilgot</artifactId>
-    <version>v0.1</version>
+    <version>fdorval</version>
     <packaging>war</packaging>
     <name>spoilgot</name>
     <description>Demo project for Spring Boot</description>
