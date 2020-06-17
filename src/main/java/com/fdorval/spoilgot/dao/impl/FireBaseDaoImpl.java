@@ -1,6 +1,6 @@
 package com.fdorval.spoilgot.dao.impl;
 
-import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.GotCharacterBack;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 import com.google.firebase.database.*;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-@Profile("default")
+@Profile("disabled")
 @Repository
 public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 
@@ -25,8 +25,8 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
 
     @Override
     @Cacheable("characters")
-    public List<GotCharacterFirebase> getCharacters() throws TechnicalException {
-        List<GotCharacterFirebase> result = new ArrayList<GotCharacterFirebase>();
+    public List<GotCharacterBack> getCharacters() throws TechnicalException {
+        List<GotCharacterBack> result = new ArrayList<GotCharacterBack>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
@@ -41,7 +41,7 @@ public class FireBaseDaoImpl implements com.fdorval.spoilgot.dao.FireBaseDao {
                     String string = snapshot.toString();
 
                     for (DataSnapshot postSnapshot : snapshot.child("characters").getChildren()) {
-                        GotCharacterFirebase character = postSnapshot.getValue(GotCharacterFirebase.class);
+                        GotCharacterBack character = postSnapshot.getValue(GotCharacterBack.class);
                         LOG.info("--> " + character.toString());
                         result.add(character);
                     }

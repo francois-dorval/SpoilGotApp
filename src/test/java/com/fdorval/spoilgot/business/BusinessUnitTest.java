@@ -3,7 +3,7 @@ package com.fdorval.spoilgot.business;
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.dao.FireBaseDao;
 import com.fdorval.spoilgot.dao.mock.FireBaseDaoMock;
-import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.GotCharacterBack;
 import com.fdorval.spoilgot.dao.model.Season;
 import org.junit.Assert;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class BusinessUnitTest {
      */
     @Test
     public void testMethodesUtils() {
-        GotCharacterFirebase perso = new GotCharacterFirebase(1, "Perso qui se fait tuer dans la saison 2", Season.S2, 2);
+        GotCharacterBack perso = new GotCharacterBack(1, "Perso qui se fait tuer dans la saison 2", Season.S2, 2);
 
         Assert.assertTrue(spoilBusiness.characterIsKilledBeforeSeason(perso, Season.S3));
 
@@ -65,9 +65,9 @@ public class BusinessUnitTest {
      */
     @Test
     public void shouldReturnAllCharacters() {
-        List<GotCharacterFirebase> result = new ArrayList<>();
-        result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
-        result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+        List<GotCharacterBack> result = new ArrayList<>();
+        result.add(new GotCharacterBack(1, "Jimmy Stark", Season.S3, 2));
+        result.add(new GotCharacterBack(2, "Johnny Lannister"));
         try {
 
             Mockito.when(fireBaseDao.getCharacters()).thenReturn(result);
@@ -88,9 +88,9 @@ public class BusinessUnitTest {
      */
     @Test
     public void shouldReturnCharactersWhoAreNotDeadInSeason() {
-        List<GotCharacterFirebase> result = new ArrayList<>();
-        result.add(new GotCharacterFirebase(1, "Jimmy Stark", Season.S3, 2));
-        result.add(new GotCharacterFirebase(2, "Johnny Lannister"));
+        List<GotCharacterBack> result = new ArrayList<>();
+        result.add(new GotCharacterBack(1, "Jimmy Stark", Season.S3, 2));
+        result.add(new GotCharacterBack(2, "Johnny Lannister"));
         try {
 
             Mockito.when(fireBaseDao.getCharacters()).thenReturn(result);

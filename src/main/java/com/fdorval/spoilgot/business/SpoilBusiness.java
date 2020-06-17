@@ -2,7 +2,7 @@ package com.fdorval.spoilgot.business;
 
 import com.fdorval.spoilgot.api.model.GotCharacterFront;
 import com.fdorval.spoilgot.dao.FireBaseDao;
-import com.fdorval.spoilgot.dao.model.GotCharacterFirebase;
+import com.fdorval.spoilgot.dao.model.GotCharacterBack;
 import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.TechnicalException;
 import org.slf4j.Logger;
@@ -38,9 +38,9 @@ public class SpoilBusiness {
     public List<GotCharacterFront> getCharactersInSeason(Season season) throws TechnicalException {
         List<GotCharacterFront> result = new ArrayList<>();
 
-        List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
+        List<GotCharacterBack> charactersFirebase = fireBaseDao.getCharacters();
 
-        for (GotCharacterFirebase characterFirebase : charactersFirebase) {
+        for (GotCharacterBack characterFirebase : charactersFirebase) {
 
             //si le personnage est mort avant la saison courante, on ne l'affiche pas
             if (!characterIsKilledBeforeSeason(characterFirebase, season)) {
@@ -57,26 +57,26 @@ public class SpoilBusiness {
     /**
      * true si le personnage se fait tuer AVANT la saison en cours
      *
-     * @param gotCharacterFirebase
+     * @param gotCharacterBack
      * @param season
      * @return
      */
-    boolean characterIsKilledBeforeSeason(GotCharacterFirebase gotCharacterFirebase, Season season) {
-        return gotCharacterFirebase.getKilledinseason() != null
-                && gotCharacterFirebase.getKilledinseason().getValue() < season.getValue();
+    boolean characterIsKilledBeforeSeason(GotCharacterBack gotCharacterBack, Season season) {
+        return gotCharacterBack.getKilledinseason() != null
+                && gotCharacterBack.getKilledinseason().getValue() < season.getValue();
     }
 
 
     /**
      * true si le personnage se fait tuer PENDANT la saison en cours
      *
-     * @param gotCharacterFirebase
+     * @param gotCharacterBack
      * @param season
      * @return
      */
-    boolean characterIsKilledInSeason(GotCharacterFirebase gotCharacterFirebase, Season season) {
-        return gotCharacterFirebase.getKilledinseason() != null
-                && gotCharacterFirebase.getKilledinseason().getValue() == season.getValue();
+    boolean characterIsKilledInSeason(GotCharacterBack gotCharacterBack, Season season) {
+        return gotCharacterBack.getKilledinseason() != null
+                && gotCharacterBack.getKilledinseason().getValue() == season.getValue();
     }
 
 
@@ -87,10 +87,10 @@ public class SpoilBusiness {
      * @return
      * @throws TechnicalException
      */
-    GotCharacterFirebase findCharacteByID(Integer id) throws TechnicalException {
-        List<GotCharacterFirebase> charactersFirebase = fireBaseDao.getCharacters();
+    GotCharacterBack findCharacteByID(Integer id) throws TechnicalException {
+        List<GotCharacterBack> charactersFirebase = fireBaseDao.getCharacters();
 
-        Optional<GotCharacterFirebase> found = charactersFirebase.stream().filter(x -> x.getId().equals(id)).findAny();
+        Optional<GotCharacterBack> found = charactersFirebase.stream().filter(x -> x.getId().equals(id)).findAny();
         if (found.isPresent()) {
             return found.get();
         }
@@ -102,23 +102,23 @@ public class SpoilBusiness {
     /**
      * conversion personnage firebase -> personnages front
      *
-     * @param gotCharacterFirebase
+     * @param gotCharacterBack
      * @param currentSeason
      * @return
      * @throws TechnicalException
      */
-    public GotCharacterFront convertToCharacterFront(GotCharacterFirebase gotCharacterFirebase, Season currentSeason) throws TechnicalException {
+    public GotCharacterFront convertToCharacterFront(GotCharacterBack gotCharacterBack, Season currentSeason) throws TechnicalException {
         GotCharacterFront result = new GotCharacterFront();
         //le nom
-        result.setName(gotCharacterFirebase.getName());
+        result.setName(gotCharacterBack.getName());
 
         //se fait-il tuer dans la saison en cours?
-        boolean deadInSeason = characterIsKilledInSeason(gotCharacterFirebase, currentSeason);
+        boolean deadInSeason = characterIsKilledInSeason(gotCharacterBack, currentSeason);
         result.setDeadInSeason(deadInSeason);
 
         //cause de la mort
         if (deadInSeason) {
-            result.setCauseOfDeath("killed by " + findCharacteByID(gotCharacterFirebase.getKilledby()).getName());
+            result.setCauseOfDeath("killed by " + findCharacteByID(gotCharacterBack.getKilledby()).getName());
         }
         return result;
 
