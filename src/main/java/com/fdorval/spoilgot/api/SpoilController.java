@@ -5,6 +5,7 @@ import com.fdorval.spoilgot.business.SpoilBusiness;
 import com.fdorval.spoilgot.dao.model.Season;
 import com.fdorval.spoilgot.util.exception.FunctionalException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,8 @@ public class SpoilController {
     SpoilBusiness spoilBusiness;
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
+    @CrossOrigin()
+
     public List<GotCharacterFront> getCharacter(@RequestParam(value = "season", defaultValue = "1") String season) throws com.fdorval.spoilgot.util.exception.TechnicalException, FunctionalException {
         return spoilBusiness.getCharactersInSeason(Season.fromString(season));
     }
